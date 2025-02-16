@@ -54,15 +54,11 @@ RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRO
    echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" \
    | tee /etc/apt/sources.list.d/oneAPI.list
 
-ARG DPCPP_VER=2024.2.1-1079
-ARG MKL_VER=2024.2.1-103
-ARG CCL_VER=2021.13.1-31
-
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        intel-oneapi-runtime-dpcpp-cpp=${DPCPP_VER} \
-        intel-oneapi-runtime-mkl=${MKL_VER} \
-        intel-oneapi-runtime-ccl=${CCL_VER} \
+    apt-get install -y \
+        intel-oneapi-runtime-dpcpp-cpp \
+        intel-oneapi-runtime-mkl \
+        intel-oneapi-runtime-ccl \
         intel-oneapi-base-toolkit \
         intel-deep-learning-essentials \
     && apt-get clean && \
@@ -76,9 +72,11 @@ RUN groupadd -g 110 render
 
 USER ${NB_USER}
 
+# https://pytorch.org/docs/stable/notes/get_start_xpu.html
 RUN pip3 install -U torch torchvision torchaudio \
   --index-url https://download.pytorch.org/whl/test/xpu
 
+# https://www.deepspeed.ai/tutorials/accelerator-setup-guide/#intel-xpu
 RUN pip3 install -U deepspeed
 
 COPY examples.ipynb .
