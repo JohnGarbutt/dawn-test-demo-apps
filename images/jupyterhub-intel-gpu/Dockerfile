@@ -77,4 +77,4 @@ RUN pip3 install -U torch torchvision torchaudio \
 
 # https://www.deepspeed.ai/tutorials/accelerator-setup-guide/#intel-xpu
 RUN pip3 install intel-extension-for-deepspeed
-RUN pip3 install deepspeed
+# TODO RUN pip3 install deepspeed
