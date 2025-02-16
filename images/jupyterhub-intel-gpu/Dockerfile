@@ -59,7 +59,7 @@ RUN apt-get update && \
         intel-oneapi-runtime-dpcpp-cpp \
         intel-oneapi-runtime-mkl \
         intel-oneapi-runtime-ccl \
-        intel-oneapi-base-toolkit \
+        intel-oneapi-runtime-compilers \
     && apt-get clean && \
     rm -rf  /var/lib/apt/lists/*
 
