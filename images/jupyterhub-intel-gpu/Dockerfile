@@ -76,6 +76,5 @@ RUN pip3 install -U torch torchvision torchaudio \
   --index-url https://download.pytorch.org/whl/test/xpu
 
 # https://www.deepspeed.ai/tutorials/accelerator-setup-guide/#intel-xpu
-RUN pip3 install -U deepspeed
-
-COPY examples.ipynb .
+RUN pip3 install intel-extension-for-deepspeed
+RUN pip3 install deepspeed
