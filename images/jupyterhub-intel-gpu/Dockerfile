@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/pytorch-notebook:2025-01-28
+FROM quay.io/jupyter/pytorch-notebook:2025-02-12
 
 #####
 # Add Intel GPU components
@@ -55,7 +55,7 @@ RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRO
    | tee /etc/apt/sources.list.d/oneAPI.list
 
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
         intel-oneapi-runtime-dpcpp-cpp \
         intel-oneapi-runtime-mkl \
         intel-oneapi-runtime-ccl \
