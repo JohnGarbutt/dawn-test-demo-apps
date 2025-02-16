@@ -62,8 +62,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         intel-oneapi-runtime-dpcpp-cpp=${DPCPP_VER} \
         intel-oneapi-runtime-mkl=${MKL_VER} \
-        intel-oneapi-runtime-ccl=${CCL_VER} && \
-    apt-get clean && \
+        intel-oneapi-runtime-ccl=${CCL_VER} \
+        intel-oneapi-base-toolkit \
+        intel-deep-learning-essentials \
+    && apt-get clean && \
     rm -rf  /var/lib/apt/lists/*
 
 RUN groupadd -g 110 render
@@ -76,5 +78,7 @@ USER ${NB_USER}
 
 RUN pip3 install -U torch torchvision torchaudio \
   --index-url https://download.pytorch.org/whl/test/xpu
+
+RUN pip3 install -U deepspeed
 
 COPY examples.ipynb .
