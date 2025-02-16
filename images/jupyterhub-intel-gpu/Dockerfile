@@ -60,7 +60,6 @@ RUN apt-get update && \
         intel-oneapi-runtime-mkl \
         intel-oneapi-runtime-ccl \
         intel-oneapi-base-toolkit \
-        intel-deep-learning-essentials \
     && apt-get clean && \
     rm -rf  /var/lib/apt/lists/*
 
