@@ -1,4 +1,4 @@
-FROM quay.io/jupyter/pytorch-notebook:2025-01-28
+FROM quay.io/jupyter/pytorch-notebook:2025-02-12
 
 #####
 # Add Intel GPU components
@@ -54,17 +54,14 @@ RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRO
    echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" \
    | tee /etc/apt/sources.list.d/oneAPI.list
 
-ARG DPCPP_VER=2024.2.1-1079
-ARG MKL_VER=2024.2.1-103
-ARG CCL_VER=2021.13.1-31
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        intel-oneapi-runtime-dpcpp-cpp=${DPCPP_VER} \
-        intel-oneapi-runtime-mkl=${MKL_VER} \
-        intel-oneapi-runtime-ccl=${CCL_VER} && \
-    apt-get clean && \
-    rm -rf  /var/lib/apt/lists/*
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends \
+#        intel-oneapi-runtime-dpcpp-cpp \
+#        intel-oneapi-runtime-mkl \
+#        intel-oneapi-runtime-ccl \
+#        intel-oneapi-runtime-compilers \
+#    && apt-get clean && \
+#    rm -rf  /var/lib/apt/lists/*
 
 RUN groupadd -g 110 render
 
@@ -72,9 +69,12 @@ RUN groupadd -g 110 render
 # User-level python components
 #####
 
-USER ${NB_USER}
-
-RUN pip3 install -U torch torchvision torchaudio \
-  --index-url https://download.pytorch.org/whl/test/xpu
-
-COPY examples.ipynb .
+# TODO
+# USER ${NB_USER}
+# https://pytorch.org/docs/stable/notes/get_start_xpu.html
+# RUN pip3 install -U torch torchvision torchaudio \
+#  --index-url https://download.pytorch.org/whl/test/xpu
+# RUN pip3 install -U oneccl_bind_pt --extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us/
+# https://www.deepspeed.ai/tutorials/accelerator-setup-guide/#intel-xpu
+# RUN pip3 install intel-extension-for-deepspeed
+# TODO RUN pip3 install deepspeed
