@@ -54,14 +54,14 @@ RUN wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRO
    echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" \
    | tee /etc/apt/sources.list.d/oneAPI.list
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        intel-oneapi-runtime-dpcpp-cpp \
-        intel-oneapi-runtime-mkl \
-        intel-oneapi-runtime-ccl \
-        intel-oneapi-runtime-compilers \
-    && apt-get clean && \
-    rm -rf  /var/lib/apt/lists/*
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends \
+#        intel-oneapi-runtime-dpcpp-cpp \
+#        intel-oneapi-runtime-mkl \
+#        intel-oneapi-runtime-ccl \
+#        intel-oneapi-runtime-compilers \
+#    && apt-get clean && \
+#    rm -rf  /var/lib/apt/lists/*
 
 RUN groupadd -g 110 render
 
@@ -69,12 +69,12 @@ RUN groupadd -g 110 render
 # User-level python components
 #####
 
-USER ${NB_USER}
-
+# TODO
+# USER ${NB_USER}
 # https://pytorch.org/docs/stable/notes/get_start_xpu.html
-RUN pip3 install -U torch torchvision torchaudio \
-  --index-url https://download.pytorch.org/whl/test/xpu
-
+# RUN pip3 install -U torch torchvision torchaudio \
+#  --index-url https://download.pytorch.org/whl/test/xpu
+# RUN pip3 install -U oneccl_bind_pt --extra-index-url https://pytorch-extension.intel.com/release-whl/stable/xpu/us/
 # https://www.deepspeed.ai/tutorials/accelerator-setup-guide/#intel-xpu
-RUN pip3 install intel-extension-for-deepspeed
+# RUN pip3 install intel-extension-for-deepspeed
 # TODO RUN pip3 install deepspeed
