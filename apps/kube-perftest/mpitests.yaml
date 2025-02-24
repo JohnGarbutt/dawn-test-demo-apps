@@ -1,7 +1,7 @@
 apiVersion: perftest.stackhpc.com/v1alpha1
 kind: BenchmarkSet
 metadata:
-  name: mpi-pingpong-cni
+  name: mpi-pingpong-accelerated
 spec:
   template:
     apiVersion: perftest.stackhpc.com/v1alpha1
@@ -10,6 +10,30 @@ spec:
       imagePullPolicy: Always
       hostNetwork: false
       # mtu: 9000
-      transport: TCP
+      resources:
+        limits:
+          "nvidia.com/hostdev": "1"
+      transport: RDMA
       maxlog: 25
   repetitions: 5
+---
+apiVersion: perftest.stackhpc.com/v1alpha1
+kind: BenchmarkSet
+metadata:
+  name: rdma-bandwidth-accelerated
+spec:
+  template:
+    apiVersion: perftest.stackhpc.com/v1alpha1
+    kind: RDMABandwidth
+    spec:
+      imagePullPolicy: Always
+      hostNetwork: false
+      resources:
+        limits:
+          "nvidia.com/hostdev": "1"
+      qps: 512
+      iterations: 25
+  repetitions: 5
+  permutations:
+    product:
+      mode: [read, write]

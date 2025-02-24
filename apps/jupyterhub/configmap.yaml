@@ -129,7 +129,7 @@ data:
         - display_name: "Pytorch environment with 4 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
-            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:d362313
+            image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
             extra_resource_limits:
               "gpu.intel.com/i915": "4"
               "nvidia.com/hostdev": "4"
