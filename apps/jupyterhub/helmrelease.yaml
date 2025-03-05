@@ -42,6 +42,8 @@ spec:
                 spec:
                   securityContext:
                     runAsNonRoot: true
+                    seccompProfile:
+                      type: RuntimeDefault
         - target:
             kind: StatefulSet
             name: .*
@@ -55,3 +57,5 @@ spec:
                 spec:
                   securityContext:
                     runAsNonRoot: true
+                    seccompProfile:
+                      type: RuntimeDefault

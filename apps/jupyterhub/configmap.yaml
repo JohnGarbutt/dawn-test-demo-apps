@@ -105,6 +105,8 @@ data:
                   - ALL
             pod_security_context:
               runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
         - display_name: "Datascience environment"
           description: "If you want the additional bells and whistles: Python, R, and Julia."
           kubespawner_override:
@@ -117,6 +119,8 @@ data:
                   - ALL
             pod_security_context:
               runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
         - display_name: "Pytorch environment with 1 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
@@ -128,6 +132,8 @@ data:
                   - ALL
             pod_security_context:
               runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             #image: quay.io/jupyter/pytorch-notebook:2025-01-28
             #image: ghcr.io/stackhpc/jupyterhub-pytorch-intel-gpu:v0.0.1
             image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
@@ -159,6 +165,8 @@ data:
                   - ALL
             pod_security_context:
               runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
         - display_name: "Pytorch environment with 4 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
@@ -176,3 +184,5 @@ data:
                   - ALL
             pod_security_context:
               runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
