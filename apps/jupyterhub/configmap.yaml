@@ -96,13 +96,44 @@ data:
         - display_name: "Minimal environment"
           description: "To avoid too much bells and whistles: Python."
           default: true
+          kubespawner_override:
+            container_security_context:
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+            pod_security_context:
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
         - display_name: "Datascience environment"
           description: "If you want the additional bells and whistles: Python, R, and Julia."
           kubespawner_override:
             image: quay.io/jupyter/datascience-notebook:2025-01-28
+            container_security_context:
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+            pod_security_context:
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
         - display_name: "Pytorch environment with 1 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
+            container_security_context:
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+            pod_security_context:
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
             #image: quay.io/jupyter/pytorch-notebook:2025-01-28
             #image: ghcr.io/stackhpc/jupyterhub-pytorch-intel-gpu:v0.0.1
             image: ghcr.io/johngarbutt/jupyterhub-intel-gpu:6421ba1
@@ -126,6 +157,16 @@ data:
               "nvidia.com/hostdev": "2"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
+            container_security_context:
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+            pod_security_context:
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
         - display_name: "Pytorch environment with 4 x Intel XPUs"
           description: "Pytorch Jupyter Stacks image!"
           kubespawner_override:
@@ -135,3 +176,13 @@ data:
               "nvidia.com/hostdev": "4"
             supplemental_gids:
               - "110" # Ubuntu render group GID, requred for permission to use Intel GPU device
+            container_security_context:
+              allowPrivilegeEscalation: false
+              runAsNonRoot: true
+              capabilities:
+                drop:
+                  - ALL
+            pod_security_context:
+              runAsNonRoot: true
+              seccompProfile:
+                type: RuntimeDefault
