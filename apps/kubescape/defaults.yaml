@@ -1,0 +1,32 @@
+---
+capabilities:
+  continousScan: enable
+  networkPolicyService: enable
+  runtimeDetection: enable
+
+kubevuln:
+  resources:
+    limits:
+      ephemeral-storage: 10Gi
+      memory: 1Gi
+      cpu: 2000m
+
+storage:
+  resources:
+    limits:
+      memory: 2Gi
+      cpu: 500m
+
+continuousScanning:
+  configMapName: cs-matching-rules
+  matchingRules:
+    match:
+      - apiGroups: ["apps"]
+        apiVersions: ["v1"]
+        resources: ["deployments", "statefulset"]
+    namespaces:
+      - jupyterhub
+      - jupyterhub-lockdown
+      - default
+
+clusterName: dawntest-admin@dawntest

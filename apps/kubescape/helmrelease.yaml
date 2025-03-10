@@ -1,0 +1,21 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubescape
+  namespace: kubescape
+spec:
+  interval: 5m
+  valuesFrom:
+    - kind: ConfigMap
+      name: kubescape-defaults
+      valuesKey: values.yaml
+  chart:
+    spec:
+      chart: kubescape-operator
+      version: "v1.25.5"
+      interval: 5m
+      sourceRef:
+        kind: HelmRepository
+        name: kubescape
+  install:
+    createNamespace: true

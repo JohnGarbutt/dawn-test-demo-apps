@@ -1,0 +1,15 @@
+---
+namespace: kubescape
+
+configMapGenerator:
+  - name: headlamp-defaults
+    files:
+      - values.yaml=defaults.yaml
+
+configurations:
+  - kustomizeconfig.yaml
+
+resources:
+  - helmrepository.yaml
+  - helmrelease.yaml
+  # - namespace.yaml
