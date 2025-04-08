@@ -1,0 +1,58 @@
+hub:
+  config:
+    KubeSpawner:
+        container_security_context:
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          capabilities:
+            drop:
+              - ALL
+        pod_security_context:
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
+scheduling:
+  userScheduler:
+    enabled: false # can't give privileges for clusterrole binding needed
+  userPlaceholder:
+    extraPodSpec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534 # nobody user
+        runAsGroup: 65534 # nobody group
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        seccompProfile:
+          type: "RuntimeDefault"
+prePuller:
+  hook:
+    enabled: false # need way to inject pod-level securityContext
+  continuous:
+    enabled: false
+proxy:
+  chp:
+    extraPodSpec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534 # nobody user
+        runAsGroup: 65534 # nobody group
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        seccompProfile:
+          type: "RuntimeDefault"
+  traefik:
+    extraPodSpec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534 # nobody user
+        runAsGroup: 65534 # nobody group
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+        seccompProfile:
+          type: "RuntimeDefault"
+singleuser:
+  cloudMetadata:
+    blockWithIptables: false

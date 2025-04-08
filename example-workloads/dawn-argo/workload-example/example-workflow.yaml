@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: hello-world-
+  labels:
+    workflows.argoproj.io/archive-strategy: "false"
+  annotations:
+    workflows.argoproj.io/description: |
+      This is a simple hello world example.
+spec:
+  entrypoint: hello-world
+  serviceAccountName: example-account
+  templates:
+  - name: hello-world
+    container:
+      image: busybox
+      command: [echo]
+      args: ["hello world"]
+      securityContext:
+        readOnlyRootFilesystem: false
+        runAsNonRoot: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+    securityContext:
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
