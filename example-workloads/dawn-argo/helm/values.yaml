@@ -1,0 +1,60 @@
+singleNamespace: true
+createAggregateRoles: false
+
+server:
+  #  rbac:
+  #    create: false
+  clusterWorkflowTemplates:
+    enabled: false
+  podSecurityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
+  securityContext:
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
+
+controller:
+  #  rbac:
+  #    create: false
+  clusterWorkflowTemplates:
+    enabled: false
+  podSecurityContext:
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
+  securityContext:
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
+
+executor:
+  securityContext:
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    runAsUser: 8737
+    seccompProfile:
+      type: RuntimeDefault
