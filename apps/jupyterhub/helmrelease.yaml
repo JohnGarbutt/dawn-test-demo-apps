@@ -26,3 +26,36 @@ spec:
   driftDetection:
     mode: enabled
   interval: 5m
+  postRenderers:
+  - kustomize:
+      patches:
+        - target:
+            kind: Deployment
+            name: .*
+          patch: |-
+            apiVersion: apps/v1
+            kind: Deployment
+            metadata:
+              name: set-run-as-non-root
+            spec:
+              template:
+                spec:
+                  securityContext:
+                    runAsNonRoot: true
+                    seccompProfile:
+                      type: RuntimeDefault
+        - target:
+            kind: StatefulSet
+            name: .*
+          patch: |-
+            apiVersion: apps/v1
+            kind: StatefulSet
+            metadata:
+              name: set-run-as-non-root
+            spec:
+              template:
+                spec:
+                  securityContext:
+                    runAsNonRoot: true
+                    seccompProfile:
+                      type: RuntimeDefault
